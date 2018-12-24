@@ -2,7 +2,7 @@
 [x] - Create HTML
   [x] - Header
     [x] - Include:
-        - Tile
+        - **Tile**
         - Company
         - Logo
         - Tag Line
@@ -13,7 +13,7 @@
 [] - Github and GitHub Pages
 [] - **Challenges** update your "minutes to arrival" and "next train time" text once every minute
 [x] - Firebase push
-[] - child added
+[x] - child added
 [] - Update and remove
 [] - Firebase Authentication
 [] - Add a Juan Readme
