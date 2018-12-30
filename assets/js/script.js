@@ -1,13 +1,9 @@
 // GET DOM NODES
 const submitTrain = document.querySelector('.train-form__button');
 
-const trains = document.querySelector('tbody');
-const form = document.querySelector('.train-form');
+let trains = document.querySelector('tbody');
 
-const trainName = document.querySelector('.train-form__input__name');
-const destination = document.querySelector('.train-form__input__destination');
-const firstTrain = document.querySelector('.train-form__input__first-train');
-const frequency = document.querySelector('.train-form__input__frequency');
+let form = document.querySelector('.train-form');
 
 // DATABASE_______________________________________________________
 // Initialize Firebase
@@ -24,28 +20,63 @@ firebase.initializeApp(config);
 
 let db = firebase.database();
 
-db.ref().on('child_added', function(snapshot, prevChildKey) {
-  let newPost = snapshot.val();
+db.ref().on(
+  'child_added',
+  function(snapshot, prevChildKey) {
+    let newPost = snapshot.val();
+ 
+    let firstTrain = moment(newPost.firstTrain, "hh:mm");
 
-  let tr = document.createElement('tr');
-  tr.innerHTML = `<td>${newPost.trainName}</td>
-     <td>${newPost.destination}</td>
-     <td>${newPost.frequency}</td>
-     `;
+    let nowMinusFirst = moment().diff(moment(firstTrain), "minutes");
+    let Remainder = nowMinusFirst % newPost.frequency;
+    let minutesAway = newPost.frequency - Remainder;
+    let nextTrain = moment(moment().add(minutesAway, "minutes")).format('hh:mm');
 
-  trains.appendChild(tr);
-});
+    if(nowMinusFirst > 0){
+      let tr = document.createElement('tr');
+      tr.className = 'show-train__tr'
+      tr.innerHTML = `<td>${newPost.trainName}</td>
+      <td>${newPost.destination}</td>
+      <td class='center'>${newPost.frequency}</td>
+      <td class='center'>${nextTrain}</td>
+      <td class='center'>${minutesAway}</td>
+      `;
+      
+      trains.appendChild(tr);
+
+    } else {
+      nextTrain = moment(firstTrain).format('hh:mm');
+      minutesAway = moment(firstTrain).diff(moment(), 'minutes');
+      let tr = document.createElement('tr');
+      tr.className = 'show-train__tr'
+      tr.innerHTML = `<td>${newPost.trainName}</td>
+       <td>${newPost.destination}</td>
+       <td class='center'>${newPost.frequency}</td>
+       <td class='center'>${nextTrain}</td>
+       <td class='center'>${minutesAway}</td>
+       `;
+  
+      trains.appendChild(tr);
+    }
+
+
+  },
+  error => (error ? console.log('error child_added ' + error) : '')
+);
 
 // FUNCTIONS______________________________________________________
-function addTrain() {
+function addTrain(e) {
+  e.preventDefault();
+
+  let train = {
+    trainName: document.querySelector('.name').value.trim(),
+    destination: document.querySelector('.destination').value.trim(),
+    firstTrain: document.querySelector('.first').value.trim(),
+    frequency: document.querySelector('.frequency').value.trim(),
+  }
+
   db.ref().push(
-    {
-      trainName: trainName.value.trim(),
-      destination: destination.value.trim(),
-      firstTrain: firstTrain.value.trim(),
-      frequency: frequency.value.trim(),
-      timeStamp: firebase.database.ServerValue.TIMESTAMP
-    },
+    train,
     error => {
       error
         ? console.log('there was and error, it says: ', +error)
@@ -53,6 +84,7 @@ function addTrain() {
     }
   );
 }
+
 
 // LISTENERS______________________________________________________
 submitTrain.addEventListener('click', addTrain);

@@ -10,13 +10,12 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-database.js"></script>
+
   </head>
   <body>
     <header class="header">
       <div class="header__company">
-        <div class="header__company__logo">Logo</div>
+        <div class="header__company__logo"><span class="header__span__logo" alt='train logo'>🚉</span></div>
         <div class="header__company__name">Train Company</div>
       </div>
       <div class="header__message">
@@ -28,44 +27,50 @@
     <form action="#" class="train-form">
       <div class="train-form__item">
         <label class="train-form__label" id="train-name">Train Name</label>
-        <input type="text" class="train-form__input__name" placeholder="Train Name" for="train-name"/>
+        <input type="text" class="train-form__input name" placeholder="Train Name" for="train-name"/>
       </div>
       <div class="train-form__item">
         <label class="train-form__label" id="destination">Destination</label>
-        <input type="text" class="train-form__input__destination" placeholder="Destination" for="destination"/>
+        <input type="text" class="train-form__input destination" placeholder="Destination" for="destination"/>
       </div>
       <div class="train-form__item">
         <label class="train-form__label" id="first-train">First Train Time</label>
-        <input type="text" class="train-form__input__first-train" placeholder="First Train Time" for="first-train"/>
+        <input type="text" class="train-form__input first" placeholder="First Train Time HH:MM" for="first-train"/>
       </div>
       <div class="train-form__item">
         <label class="train-form__label" id="frequency">Frequency</label>
-        <input type="text" class="train-form__input__frequency" placeholder="Frequency" for="frequency"/>
+        <input type="text" class="train-form__input frequency" placeholder="Frequency (in minutes)" for="frequency"/>
       </div>
-      <button class="train-form__button">Add 🚂</button>
+      <button class="train-form__button">ADD TRAIN</button>
     </form>
 
     <section class="show-train">
       <table>
-        <caption><h2 class="show-train">Show Train</h2></caption>
+        <caption><h2 class="show-train-name">Show Train</h2></caption>
         <thead class="show-train__thead">
           <tr class="show-train__tr">
-            <th class="show-train__th">Train Name</th>
-            <th class="show-train__th">Destination</th>
-            <th class="show-train__th">Frequency (min)</th>
-            <th class="show-train__th">Next Arrival</th>
+            <th class="show-train__th">Name</th>
+            <th class="show-train__th">Dest</th>
+            <th class="show-train__th">Freq (min)</th>
+            <th class="show-train__th">Next Train</th>
             <th class="show-train__th">Minutes Away</th>
           </tr>
         </thead>
         <div class="tbody show-train__tbody">
           <tr class="show-train__tbody">
-            <td class="show-train__td"></td>
+            <!-- <td class="show-train__td"></td> -->
           </tr>
-        </div>
       </table>
     </section>
+    <section id='footer'>
+      <footer class="footer">🚆   🤖  ⏲</footer>
+    </section>
 
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-database.js"></script>
     <script src="./assets/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
+  </div>
   </body>
 </html>
 
