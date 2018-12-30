@@ -2,8 +2,8 @@
 const submitTrain = document.querySelector('.train-form__button');
 
 let trains = document.querySelector('tbody');
-
 let form = document.querySelector('.train-form');
+const table = document.querySelector('tbody');
 
 // DATABASE_______________________________________________________
 // Initialize Firebase
@@ -35,11 +35,13 @@ db.ref().on(
     if(nowMinusFirst > 0){
       let tr = document.createElement('tr');
       tr.className = 'show-train__tr'
+      tr.dataset.id = snapshot.key;
       tr.innerHTML = `<td>${newPost.trainName}</td>
       <td>${newPost.destination}</td>
       <td class='center'>${newPost.frequency}</td>
       <td class='center'>${nextTrain}</td>
       <td class='center'>${minutesAway}</td>
+      <td class='center X'>X</td>
       `;
       
       trains.appendChild(tr);
@@ -50,10 +52,11 @@ db.ref().on(
       let tr = document.createElement('tr');
       tr.className = 'show-train__tr'
       tr.innerHTML = `<td>${newPost.trainName}</td>
-       <td>${newPost.destination}</td>
-       <td class='center'>${newPost.frequency}</td>
-       <td class='center'>${nextTrain}</td>
-       <td class='center'>${minutesAway}</td>
+      <td>${newPost.destination}</td>
+      <td class='center'>${newPost.frequency}</td>
+      <td class='center'>${nextTrain}</td>
+      <td class='center'>${minutesAway}</td>
+      <td class='center X'>X</td>
        `;
   
       trains.appendChild(tr);
@@ -85,6 +88,15 @@ function addTrain(e) {
   );
 }
 
-
 // LISTENERS______________________________________________________
 submitTrain.addEventListener('click', addTrain);
+
+// Delete record
+
+table.addEventListener('click',(e) => {
+  let node = e.target.parentNode;
+  let nodeKey = node.dataset.id;
+  db.ref().child(nodeKey).remove(); // remove from DB
+  node.remove(); // remove from DOM
+})
+
