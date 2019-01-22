@@ -10,7 +10,7 @@ body {
   flex-direction: column;
   align-content: center;
   min-width: 300px;
-  background-color: #e2e0e0;
+  background-color: #f1f1f1;
 }
 
 .header{
@@ -24,7 +24,7 @@ body {
   margin-bottom: 2rem;
 }
 .header__company__logo{
-  background-color: #a1bfff;
+  background-color: #afc8ff;
   border: 5px solid #ffffff;
   padding: 0.5rem 0 0.3rem 0;
   margin-bottom: 10px;
@@ -40,6 +40,33 @@ body {
 
 .header__message__title{
   font-size: 3vw;
+}
+
+.header__sign-in-up > input {
+  padding: 0.8rem;
+  border: none;
+}
+
+.header__sign-in-up > button{
+  margin-top: 1rem;
+  padding: 0.8rem 2rem;
+  border: none;
+  background-color: #fff;
+  color: #383838;
+  cursor: pointer;
+}
+
+.header__sign-in-up > button:hover{
+  background-color: #afc8ff;
+  color: #fff;
+}
+
+.header__sign-in-up > button:active{
+  transform: scale(0.97);
+}
+
+.hide {
+  display: none;
 }
 
 .train-form{
@@ -82,15 +109,6 @@ body {
   transform: scale(0.97);
 }
 
-/* 
-input:invalid {
-  border: 2px dashed red;
-}
-
-input:valid {
-  border: 2px solid black;
-} */
-
 .show-train{
   margin-top: 2rem;
   background-color: #1f1e1e;
@@ -100,10 +118,10 @@ input:valid {
 }
 
 .show-train__tr{
-  color: rgb(56, 56, 56);
+  color: #383838;
   display:grid;
   grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr;
-  background-color: #cfcfcf;
+  background-color: #afc8ff;
 }
 
 .show-train__tr:nth-child(odd){
